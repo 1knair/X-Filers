@@ -4,12 +4,12 @@
 using namespace std;
 
 int main() {
-new UFOSightings()
-	UFOSightings.parseFile("ufo_sighting_data.csv");
-	new Graph graph;
+    UFOSightings() sightings;
+	sightings.parseFile("ufo_sighting_data.csv");
+	Graph graph;
     string start, target; //Keys
 	
-    graph.create(UFOSightings.getCityDates());
+    graph.create(sightings.getCityDates());
     
     //UI stuff for input selection
     cin >> start; //Get start key
