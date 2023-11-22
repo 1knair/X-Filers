@@ -7,8 +7,6 @@
 #include <utility>
 #include <cmath>
 
-
-
 using namespace std;
 
 class Graph {
@@ -31,16 +29,41 @@ private:
      */
     long double calculateEdgeWeight(pair<long double, long double> start, pair<long double, long double> end);
     void addVertex(string key);					    //add each key to map if it doesn’t already exist
-    void addEdge(string end, double weight);	    //if dist<threshold, add Edge to adjList[start]
+    void addEdge(string start, string end);	    //if dist<threshold, add Edge to adjList[start]
 
 public:
-    void create(vector<string>);					//for each Sighting in v, getCity(), getData()
+    void create(vector<string> v);					//for each Sighting in v, getCity(), getData()
     double dijkstra(string start, string end);		//add shortest path keys to class member path
     double modifiedBFS(string start, string end);	//add shortest path keys to class member path
     vector<string> getPath(); 						//get cities in shortest path
 };
 
+void Graph::addVertex(string key){
+    //Check if it is in the graph
+    if(adjList.find(key) == adjList.end())
+    {
+        adjList[key] = {};
+    }
+}
 
+void Graph::addEdge(string start, string end){
+    Edge newEdge;
+    newEdge.target_destination = end;
+    newEdge.weight = calculateEdgeWeight(sighting.getLatLong(start), sighting.getLatLong(end));
+
+    // Add the new edge to the start city's list of edges
+    adjList[start].push_back(newEdge);
+}
+
+void Graph::create(vector<string> v){
+    //Check if it is in the graph
+    for (const auto& a : cityDates)
+    {
+        string cityDate = sighting.getData(city, a) + sighting.getData(dateTime, a);
+        addVertex(cityDate);
+    }
+
+}
 long double Graph::calculateEdgeWeight(pair<long double,long double> start, pair<long double,long double> end) {
     long double edgeWeight = 0; //holds the distance in km of the two points
     //convert longitudes and latitudes to radians
@@ -61,12 +84,5 @@ long double Graph::calculateEdgeWeight(pair<long double,long double> start, pair
     return edgeWeight;
 
 }
-
-void addVertex(string key){
-    //Check if it is in the graph
-
-}
-
-
 
 #endif //P3_GRAPH_H

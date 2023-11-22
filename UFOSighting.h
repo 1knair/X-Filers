@@ -1,106 +1,135 @@
 //
 // Created by Brianna Yanqui on 11/20/23.
 //
+#include <iostream>
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <utility>
+#include <fstream>
+#include <sstream>
 using namespace std;
 #ifndef P3_UFOSIGHTING_H
 #define P3_UFOSIGHTING_H
-
-
-class UFOSighting{
+//CITY-DATES = KEYS
+class UFOSightings{
 private:
-    struct Sighting{
-        string city, date_Time, desc, shape, length;
-        pair<double, double> latLong;
-        Sighting(double _latitude, double _longitude, string& _city, string& _dateTime, string& _desc, string& _length):
-                latLong(_latitude, _longitude), city(_city), date_Time(_dateTime), desc(_desc), length(_length){}
-    };
-    vector<string> cityDates;
 public:
-    vector<string> v;						//vector of city-date keys for fast traversal
-    /**
-        Example data insertion
-        in parseFile() ->
-        for each sighting in the file
-            city column = city
-            dateTime column = Date1-Time1
-            vector<pair<string, string>> key1 = {{"City1", "Date1-Time1"}};
+    struct Sighting {
+        string city, date_time, desc, shape, length;
+        pair<long double, long double> coords;
+        Sighting() : city(""), date_time(""), desc(""), shape(""), length(""), coords({ 0.0, 0.0 }) {}
 
-            Sighting sighting1(40.7128, -74.0060, "City1", "Date1-Time1", "Description1", "Length1");
-            m[key1] = sighting1;
-     */
-     //keys: city, dates/time, values: Sighting structs
-    unordered_map<vector<pair<string, string>>, Sighting(double _latitude, double _longitude, string& _city, string& _dateTime, string& _desc, string& _length)> m;
+        Sighting(string& _city, string& _dateTime, string& _desc, string& _length, pair<long double, long double> _coords)
+                : city(_city), date_time(_dateTime), desc(_desc), length(_length), coords(_coords) {}
+    };
+    struct HashPairString {
+        size_t operator()(const pair<string, string>& p) const {
+            size_t h1 = hash<string>{}(p.first);
+            size_t h2 = hash<string>{}(p.second);
+            return h1 ^ (h2 << 1); //xor
+        }
+    };
+    vector<pair<string, string>> v; //vector of keys for fast traversal
+    unordered_map<pair<string, string>, Sighting, HashPairString> m; //map of keys
+    //read CSV; construct sightings; fill map+vec
+    void parseFile(string filePath, int n); //does n lines
+    //Getters
+    vector<pair<string, string>> getCityDates();
+    string getData(const string field, const pair<string, string>& key);
+    pair<long double, long double> getLatLong(string key);
 
-    void parseFile(string& filePath);				//read CSV; construct sightings; fill map+vec
-    vector<string> getCityDates();		//	return city date
-    string getData(const string& data, const string& key);		// general getter function for map lookup
 };
-
+string UFOSightings::getData(const string field, const pair<string, string>& key)
+{
+    if(field == "dateTime")
+        return m[key].date_time;
+    if(field == "desc")
+        return m[key].desc;
+    if(field == "shape")
+        return m[key].shape;
+    if(field == "length")
+        return m[key].length;
+    if(field == "city")
+        return m[key].city;
+    if (field == "latitude")
+        return to_string(m[key].coords.first);
+    if (field == "longitude")
+        return to_string(m[key].coords.second); //Or long double getCoords()
+    else
+        return "-1";
+}
+pair<long double, long double> UFOSightings::getLatLong(string key)
+{
+    return m[key].coords;
+}
+/*
 void UFOSighting::setLatitude(const string& key, double latitude) {
-    m[key].latLong.first = latitude;
+    m[key].coords.first = latitude;
 }
-
 void UFOSighting::setLongitude(const string& key, double longitude) {
-    m[key].latLong.second = longitude;
+    m[key].coords.second = longitude;
 }
-
 void UFOSighting::setCity(const string& key, const string& city) {
     m[key].city = city;
 }
-
 void UFOSighting::setTime(const string& key, const string& time) {
     m[key].time = time;
 }
-
 void UFOSighting::setDescription(const string& key, const string& desc) {
     m[key].desc = desc;
 }
-
 void UFOSighting::setDescription(const string& key, const string& desc) {
     m[key].desc = desc;
 }
-
 void UFOSighting::setLength(const string& key, const string& length) {
     m[key].length = length;
 }
-
-// change to all
-pair<long double, long double> UFOSighting::getLatLong(const string& key)
+*/
+vector<pair<string, string>> UFOSightings::getCityDates()
 {
-    return m[key].latLong;
+    return v;
 }
-string UFOSighting::getData(const string& data, const string& key)
+void UFOSightings::parseFile(string filePath, int n)
 {
-    if(data == "dateTime")
-        return m[key].date_Time;
-    if(data == "desc")
-        return m[key].des;
-    if(data == "shape")
-        return m[key].shape;
-    if(data == "length")
-        return m[key].length;
-    if(data == "city")
-        return m[key].city;
-    if(data == "latLong")
-        return m[key].latLong;
+    ifstream fs;
+    fs.open(filePath);
+    if (!fs.is_open()) {
+        cout << "CAN'T OPEN";
+        return;
+    }
+    string line;
+    int count = -1; //
+    while (getline(fs, line, '\r'))
+    { //wow \r is crazy
+        count++;
+        if (count == 0)
+            continue;
+        stringstream ss(line);
+        string field;
+        string fields[11];
+        for (int i = 0; i < 11; i++) {
+            if (i < 10)
+                getline(ss, field, ',');
+            else //Last field in line
+                getline(ss, field, ' ');
+            fields[i] = field;
+            //cout << field << "|"; //
+        }
+        //Date_time,city,state/proxvince,country,UFO_shape,length_of_encounter_seconds,described_duration_of_encounter,description,date_documented,latitude,longitude
+        string date_time = fields[0];
+        string city = fields[1];
+        string state = fields[2];
+        string desc = fields[7];
+        string length = fields[5];
+        long double lati = stold(fields[9]);
+        long double longi = stold(fields[10]);
+        pair<long double, long double> coords = { lati, longi };
+        pair<string, string> key = { city, date_time };
+        v.push_back(key);
+        m[key] = Sighting(city, date_time, desc, length, coords);
+        if (count == n)
+            break;
+    }
 }
-
-vector<string> UFOSighting::getCityDates(){
-    return cityDates;
-}
-
-void UFOSighting::parseFile(string& filePath)
-{
-    /*
-     * deserialize?
-     * readfile?
-     *
-     * add to cityDates vector
-     */
-}
-
-
 #endif //P3_UFOSIGHTING_H
