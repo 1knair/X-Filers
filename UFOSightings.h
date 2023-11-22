@@ -70,6 +70,12 @@ string UFOSightings::getData(const string field, const pair<string, string>& key
     else
         return "-1";
 }
+
+// O(1)
+pair<long double, long double> UFOSightings::getLatLong(string key)
+{
+    return m[key].coords;
+}
 /*
 void UFOSighting::setLatitude(const string& key, double latitude) {
     m[key].coords.first = latitude;
