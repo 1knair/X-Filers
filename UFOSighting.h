@@ -40,6 +40,8 @@ public:
     pair<long double, long double> getLatLong(string key);
 
 };
+
+// O(1)
 string UFOSightings::getData(const string field, const pair<string, string>& key)
 {
     if(field == "dateTime")
@@ -59,6 +61,8 @@ string UFOSightings::getData(const string field, const pair<string, string>& key
     else
         return "-1";
 }
+
+// O(1)
 pair<long double, long double> UFOSightings::getLatLong(string key)
 {
     return m[key].coords;
@@ -86,10 +90,13 @@ void UFOSighting::setLength(const string& key, const string& length) {
     m[key].length = length;
 }
 */
+// O(1)
 vector<pair<string, string>> UFOSightings::getCityDates()
 {
     return v;
 }
+
+// O(# of lines)
 void UFOSightings::parseFile(string filePath, int n)
 {
     ifstream fs;
