@@ -1,33 +1,24 @@
-#include <iostream>
-#include <UFOSightings.h>
-#include <Graph.h>
+#include "iostream"
+#include "UFOSightings.h"
+#include "Graph.h"
 using namespace std;
 
-int main() {
-    UFOSightings() sightings;
-	sightings.parseFile("ufo_sighting_data.csv");
+int main()
+{	
 	Graph graph;
-    string start, target; //Keys
-	
-    graph.create(sightings.getCityDates());
-    
-    //UI stuff for input selection
-    cin >> start; //Get start key
-    cin >> target; //Get end key
-    //If we want to input weight, do it here, pass to graph
+	UFOSightings sightings;
 
-	startCity = getCity(start)
-    targetCity = getCity(target); //Get city data from keys
+	sightings.parseFile("./ufo_sighting_data.csv", 50);
+	graph.create(sightings);
 
-    //UI stuff for algo selection
-    Graph.dijkstra(startCity, targetCity);
-    Graph.modifiedBFS(startCity, targetCity);
 
-    //UI stuff to display string
-    for (const string& city : graph.getPath()) {
-        cout << city << " ";
-    }
-
-    return 0;
+	for (pair<string, string>& key : sightings.v) {
+		/*cout << "City: " << sightings.m[key].city << endl;
+		cout << "Date/Time: " << sightings.m[key].date_time << endl;
+		cout << "Length: " << sightings.m[key].length << endl;
+		cout << "Desc: " << sightings.m[key].desc << endl;
+		cout << "Coords: " << sightings.m[key].coords.first << ", " << sightings.m[key].coords.first << endl;*/
+	}
+	//go here 4/29/2005 21:00,cary,nc,us,light,90,90 sec,((NUFORC Note:  Missile launch at 2055 hrs (EDT).  PD))  Two small yellow-white lights moving parallel to horizon; fuzzy ring of light,5/11/2005,35.7913889,-78.7813889
 
 }

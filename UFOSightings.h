@@ -24,9 +24,15 @@ public:
         string city, date_time, desc, shape, length;
         pair<long double, long double> coords;
         Sighting() : city(""), date_time(""), desc(""), shape(""), length(""), coords({ 0.0, 0.0 }) {}
+<<<<<<< Updated upstream
 
         Sighting(string& _city, string& _dateTime, string& _desc, string& _length, pair<long double, long double> _coords)
                 : city(_city), date_time(_dateTime), desc(_desc), length(_length), coords(_coords) {}
+=======
+        
+        Sighting(string& _city, string& _dateTime, string& _desc, string& _length, pair<long double, long double> _coords)
+            : city(_city), date_time(_dateTime), desc(_desc), length(_length), coords(_coords) {}
+>>>>>>> Stashed changes
 
     };
 
@@ -44,9 +50,18 @@ public:
     //read CSV; construct sightings; fill map+vec
     void parseFile(string filePath, int n); //does n lines
 
+<<<<<<< Updated upstream
     //Getters
     vector<pair<string, string>> getCityDates();
     string getData(const string field, const pair<string, string>& key);
+=======
+
+    //Getters
+    vector<pair<string, string>> getCityDates();
+    string getData(const string field, const pair<string, string>& key);
+    pair<long double, long double> getLatLong(pair<string, string>);
+
+>>>>>>> Stashed changes
 
 };
 
@@ -70,12 +85,15 @@ string UFOSightings::getData(const string field, const pair<string, string>& key
     else
         return "-1";
 }
+<<<<<<< Updated upstream
 
 // O(1)
 pair<long double, long double> UFOSightings::getLatLong(string key)
 {
     return m[key].coords;
 }
+=======
+>>>>>>> Stashed changes
 /*
 void UFOSighting::setLatitude(const string& key, double latitude) {
     m[key].coords.first = latitude;
@@ -157,5 +175,12 @@ void UFOSightings::parseFile(string filePath, int n)
     }
 }
 
+<<<<<<< Updated upstream
+=======
+pair<long double, long double> UFOSightings::getLatLong(pair<string, string> key)
+{
+    return m[key].coords;
+}
+>>>>>>> Stashed changes
 
 #endif //P3_UFOSIGHTING_H
