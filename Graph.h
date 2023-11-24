@@ -16,6 +16,8 @@ private:
     struct Edge {
         string to;
         long double weight;	//distance
+
+        Edge(string _to, long double _weight) : to(_to), weight(_weight) {}
     };
 
     vector<string> path; 						 
@@ -40,28 +42,17 @@ public:
     vector<string> getPath();
 };
 
-<<<<<<< Updated upstream
 //O(number of sightings)
-void Graph::addVertex(string key){
-=======
-void Graph::addVertex(string city) {
->>>>>>> Stashed changes
+void Graph::addVertex(string city){
     //Check if it is in the graph
     //calculateEdgeWeight();
    if (adjList.find(city) == adjList.end()) { //For duplicate
        adjList[city] = {};
     }
 }
-<<<<<<< Updated upstream
 //O(
-void Graph::addEdge(string start, string end){
-=======
-
-void Graph::addEdge(string from, string to, long double weight) {
->>>>>>> Stashed changes
-    Edge newEdge;
-    newEdge.weight = weight;
-    newEdge.to = to;
+void Graph::addEdge(string from, string to, long double weight){
+    Edge newEdge = Edge(to, weight);
     // Add the new edge to the start city's list of edges
     adjList[from].push_back(newEdge);
     
