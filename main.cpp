@@ -1,6 +1,7 @@
 #include "iostream"
 #include "UFOSightings.h"
 #include "Graph.h"
+#include <utility>
 using namespace std;
 
 int main()
@@ -8,10 +9,14 @@ int main()
 	Graph graph;
 	UFOSightings sightings;
 
-	sightings.parseFile("./ufo_sighting_data.csv", 50);
+	sightings.parseFile("./ufo_sighting_data.csv", 1000);
 	graph.create(sightings);
-
-
+	string start = "houston";
+	string end = "white plains";
+	cout << graph.dijkstra(start, end) << endl;
+	//if (graph.adjList.find("houston") != graph.adjList.end()) cout << "Found";
+	//cout << graph.calculateEdgeWeight(make_pair(29.7630556, -95.3630556), make_pair(41.523427, -73.646795));
+	cout << graph.calculateEdgeWeight(make_pair(29.7630556, -95.3630556), make_pair(41.523427, -73.646795));
 	for (pair<string, string>& key : sightings.v) {
 		/*cout << "City: " << sightings.m[key].city << endl;
 		cout << "Date/Time: " << sightings.m[key].date_time << endl;
