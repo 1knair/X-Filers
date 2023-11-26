@@ -8,8 +8,11 @@
 #include <cmath>
 #include <queue>
 #include <tuple>
+#include <algorithm>
 #include "UFOSightings.h"
 #define X_PI 3.14159265358979323846
+#include <limits>
+
 
 using namespace std;
 
@@ -26,7 +29,7 @@ public:
     unordered_map<string, tuple<vector<Edge>, long double, bool>> adjList;
     int numVertices = 0;
 
-    float threshold = 2000; //km
+    float threshold = 600; //km
     /**
      * Calculates the edge weight (which is the distancesance) between the two nodes' latitude
      * and longitude using the Haversine formula.
@@ -41,8 +44,15 @@ public:
 
 public:
     void create(UFOSightings& sightings);
+
+    /**
+     * Source(https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/)
+     * @param start
+     * @param end
+     * @return
+     */
     double dijkstra(string start, string end);
-    double modifiedBFS(string start, string end);
+    vector<string> modifiedBFS(string start, string end);
 };
 
 //O(number of sightings)
@@ -50,7 +60,7 @@ void Graph::addVertex(string city){
     //Check if it is in the graph
     //calculateEdgeWeight();
    if (adjList.find(city) == adjList.end()) { //For duplicate
-       get<1>(adjList[city]) = { numeric_limits<long double>::max() };
+       get<1>(adjList[city]) = { std::numeric_limits<long double>::max() };
        numVertices++;
     }
 }
@@ -129,6 +139,47 @@ double Graph::dijkstra(string start, string end) {
 
     return get<1>(adjList[end]);
 }
+
+vector<string> Graph::modifiedBFS(string start, string end){
+    //START HERE!!! CURRENTLY PRINTING EMPTY STRINGS
+    //int minedges(int [][]edges, int u, int v, int n)
+    vector<pair<string,bool>> visited(adjList.size(),make_pair("",false));
+    //vector<pair<string,int>> distance(adjList.size(),make_pair("",0));
+    vector<string> distance(adjList.size(),"");
+
+    int index = 1; //counter to fill the distance array with pairs
+    queue<string> q; //to keep track of the current visited nodes
+    q.push(start);
+    visited[0] = make_pair(start, true);
+    distance[0] = start;
+
+   while(!q.empty()) {
+       string curr = q.front();
+       q.pop();
+
+       for (const Edge& edge : get<0>(adjList[curr])){
+           //check if the edge is in the visited vector
+           auto it = find_if(visited.begin(), visited.end(), [&edge](const pair<string,bool>& p){
+               return p.first == edge.to;
+           });
+
+           if (it == visited.end()) { //if the edge is NOT found
+               //update the distance this holds the BFS order when we traverse the graph
+               //distance[index].first = edge.to;
+               //distance[index].second = distance[index].second + 1; //add one to the distance
+               distance[index] = edge.to;
+               //update that the visited vector to include that this edge has been visited
+               visited[index+1].first = edge.to;
+               visited[index+1].second = true;
+               q.push(visited[index+1].first );
+               index++;
+           }
+       }
+   }
+   return distance;
+}
+
+
 
 
 
