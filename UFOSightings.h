@@ -21,12 +21,12 @@ private:
 
 public:
     struct Sighting {
-        string city, date_time, desc, shape, length;
+        string state, city, date_time, desc, shape, length;
         pair<long double, long double> coords;
-        Sighting() : city(""), date_time(""), desc(""), shape(""), length(""), coords({ 0.0, 0.0 }) {}
+        Sighting() : state(""), city(""), date_time(""), desc(""), shape(""), length(""), coords({ 0.0, 0.0 }) {}
 
-        Sighting(string& _city, string& _dateTime, string& _desc, string& _length, pair<long double, long double> _coords)
-                : city(_city), date_time(_dateTime), desc(_desc), length(_length), coords(_coords) {}
+        Sighting(string & _state, string& _city, string& _dateTime, string& _desc, string& _length, pair<long double, long double> _coords)
+                : state(_state), city(_city), date_time(_dateTime), desc(_desc), length(_length), coords(_coords) {}
 
     };
 
@@ -47,7 +47,6 @@ public:
     //Getters
     vector<pair<string, string>> getCityDates();
     string getData(const string field, const pair<string, string>& key);
-
     pair<long double, long double> getLatLong(pair<string, string> key);
 
 };
@@ -64,7 +63,9 @@ string UFOSightings::getData(const string field, const pair<string, string>& key
     if(field == "length")
         return m[key].length;
     if(field == "city")
-        return m[key].city;
+        return (m[key].city + m[key].state);
+    if(field == "state")
+        return m[key].state;
     if (field == "latitude")
         return to_string(m[key].coords.first);
     if (field == "longitude")
@@ -153,7 +154,7 @@ void UFOSightings::parseFile(string filePath, int n)
         pair<long double, long double> coords = { lati, longi };
         pair<string, string> key = { city, date_time };
         v.push_back(key);
-        m[key] = Sighting(city, date_time, desc, length, coords);
+        m[key] = Sighting(state, city, date_time, desc, length, coords);
         if (count == n)
             break;
     }
