@@ -7,11 +7,15 @@ using namespace std;
 int main()
 {	
 	Graph graph; //create empty graph
+    cout << "Graph container created successfully" << endl;
 	UFOSightings sightings; //create container for sightings
+    cout << "Sighting container created successfully" << endl;
 
     //Fill the graph with sightings
-	sightings.parseFile("./ufo_sighting_data.csv", 1000);
-	graph.create(sightings);
+	sightings.parseFile("./ufo_sighting_data.csv", 80332);
+    cout << "Parse file and sighting objects created successfully" << endl;
+    graph.create(sightings);
+    cout << "Graph created successfully" << endl;
 
     //This will be the user input from starting ufo sighting and target(end) ufo sighting
     string start = "houston-tx";

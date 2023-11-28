@@ -16,17 +16,19 @@
 
 using namespace std;
 
+struct Edge{
+    string to; //city-state adjacent/neighbor node
+    long double weight;	//distances from sighting to neighboring sighting
+    pair<long double, long double> latLong; //latitude and longitude coordinates for testing
+
+    //parametrized constructor
+    Edge(string _to, long double _weight, pair<long double, long double> _latLong) : to(_to), weight(_weight), latLong(_latLong) {}
+};
+
 class Graph {
 //private:
 public:
-    struct Edge{
-        string to; //city-state adjacent/neighbor node
-        long double weight;	//distances from sighting to neighboring sighting
-        pair<long double, long double> latLong; //latitude and longitude coordinates for testing
 
-        //parametrized constructor
-        Edge(string _to, long double _weight, pair<long double, long double> _latLong) : to(_to), weight(_weight), latLong(_latLong) {}
-    };
 
     //key is the city-state from node, value is a tuple
     //first is the to nodes along with edge weights
@@ -118,25 +120,29 @@ void Graph::addEdge(const string& from, const string& to, long double weight, pa
 }
 
 void Graph::create(UFOSightings& sightings) {
-    vector<pair<string, string>> v = sightings.v; //will hold the city-state
+    vector<pair<string, string>> v = sightings.v;
 
-    for (const auto& sighting : v) {
-        string currentCity = sightings.m[sighting].city + '-' + sightings.m[sighting].state ;
+    for (unsigned int i  = 0 ;  i < v.size(); i ++){
+        auto currentSighting = v[i];
+        //cout << v[i].first << endl;
+        auto destSighting = v[i+1];
+        string currentCity = sightings.m[currentSighting].city + '-' + sightings.m[currentSighting].state ;
+        //   cout << currentCity << endl;
         addVertex(currentCity);
 
-        for (const auto& otherSighting : v) {
-            string otherCity = sightings.m[otherSighting].city + '-' + sightings.m[otherSighting].state;
+        string otherCity = sightings.m[destSighting].city + '-' + sightings.m[destSighting].state;
 
-            if (currentCity != otherCity) {
-                long double weight = calculateEdgeWeight(sightings.getLatLong(sighting), sightings.getLatLong(otherSighting));
+        if (currentCity != otherCity)
+        {
+            long double weight = calculateEdgeWeight(sightings.getLatLong(currentSighting), sightings.getLatLong(destSighting));
 
-                if (weight < threshold) {
-                    addEdge(currentCity, otherCity, weight, sightings.getLatLong(otherSighting));
-                }
-            }
+            if (weight < threshold)
+                addEdge(currentCity, otherCity, weight, sightings.getLatLong(destSighting));
+
         }
     }
 }
+
 
 
 long double Graph::calculateEdgeWeight(pair<long double, long double> start, pair<long double, long double> end) {
