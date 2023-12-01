@@ -122,6 +122,7 @@ void Graph::addEdge(const string& from, const string& to, long double weight, pa
 void Graph::create(UFOSightings& sightings) {
     vector<pair<string, string>> v = sightings.v;
 
+    //one way forward
     for (unsigned int i  = 0 ;  i < v.size(); i ++){
         auto currentSighting = v[i];
         //cout << v[i].first << endl;
@@ -141,6 +142,29 @@ void Graph::create(UFOSightings& sightings) {
 
         }
     }
+
+    //one way backward to make the graph bi-directional
+    for (unsigned int i  = v.size();  i > 0; i --){
+        auto currentSighting = v[i];
+        //cout << v[i].first << endl;
+        auto destSighting = v[i-1];
+        string currentCity = sightings.m[currentSighting].city + '-' + sightings.m[currentSighting].state ;
+        //   cout << currentCity << endl;
+        addVertex(currentCity);
+
+        string otherCity = sightings.m[destSighting].city + '-' + sightings.m[destSighting].state;
+
+        if (currentCity != otherCity)
+        {
+            long double weight = calculateEdgeWeight(sightings.getLatLong(currentSighting), sightings.getLatLong(destSighting));
+
+            if (weight < threshold)
+                addEdge(currentCity, otherCity, weight, sightings.getLatLong(destSighting));
+
+        }
+    }
+
+
 }
 
 

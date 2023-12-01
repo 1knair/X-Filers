@@ -38,7 +38,7 @@ public:
         }
     };
 
-    vector<pair<string, string>> v; //vector of keys for fast traversal
+    vector<pair<string, string>> v; //vector of keys for fast traversal this is the city state
     unordered_map<pair<string, string>, Sighting, HashPairString> m; //map of keys
 
     //read CSV; construct sightings; fill map+vec
@@ -152,7 +152,7 @@ void UFOSightings::parseFile(string filePath, int n)
         long double longi = stold(fields[10]);
 
         pair<long double, long double> coords = { lati, longi };
-        pair<string, string> key = { city, date_time };
+        pair<string, string> key = { city, state };
         v.push_back(key);
         m[key] = Sighting(state, city, date_time, desc, length, coords);
         if (count == n)
