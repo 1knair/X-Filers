@@ -123,7 +123,7 @@ void Graph::create(UFOSightings& sightings) {
     vector<pair<string, string>> v = sightings.v;
 
     //one way forward
-    for (unsigned int i  = 0 ;  i < v.size(); i ++){
+    for (unsigned int i  = 0 ;  i < v.size() - 1 ; i ++){
         auto currentSighting = v[i];
         //cout << v[i].first << endl;
         auto destSighting = v[i+1];
@@ -144,7 +144,7 @@ void Graph::create(UFOSightings& sightings) {
     }
 
     //one way backward to make the graph bi-directional
-    for (unsigned int i  = v.size();  i > 0; i --){
+    for (unsigned int i  = v.size() - 1;  i > 0; i --){
         auto currentSighting = v[i];
         //cout << v[i].first << endl;
         auto destSighting = v[i-1];
@@ -229,7 +229,7 @@ vector<string> Graph::dijkstra(const string& start, const string& end)
         while (current != start) { //while we have not reached the source node
             shortestPath.push_back(current);
             current = previous[current];
-       }
+        }
         shortestPath.push_back(start); //add the source node
 
         //since we were traversing the dijsktra shortest path from the end to the start
@@ -252,29 +252,29 @@ vector<string> Graph::modifiedBFS(string start, string end){
     visited.push_back(make_pair(start,true));
     path.push_back(start);
 
-   while(!q.empty()) {
-       string curr = q.front();
-       q.pop();
+    while(!q.empty()) {
+        string curr = q.front();
+        q.pop();
 
-       for (const Edge& edge : get<0>(adjList[curr])){
-           //check if the edge is in the visited vector
-           auto it = find_if(visited.begin(), visited.end(), [&edge](const pair<string,bool>& p){
-               return p.first == edge.to;
-           });
+        for (const Edge& edge : get<0>(adjList[curr])){
+            //check if the edge is in the visited vector
+            auto it = find_if(visited.begin(), visited.end(), [&edge](const pair<string,bool>& p){
+                return p.first == edge.to;
+            });
 
-           if (it == visited.end()) { //if the edge is NOT found
-               path.push_back(edge.to);
-               //update that the visited vector to include that this edge has been visited
-               visited.push_back(make_pair(edge.to,true));
-               q.push(edge.to);
+            if (it == visited.end()) { //if the edge is NOT found
+                path.push_back(edge.to);
+                //update that the visited vector to include that this edge has been visited
+                visited.push_back(make_pair(edge.to,true));
+                q.push(edge.to);
 
-               if(edge.to == end){
-                   return path;
-               }
-           }
-       }
-   }
-   return {"You can't drive to this UFO sighting :("};
+                if(edge.to == end){
+                    return path;
+                }
+            }
+        }
+    }
+    return {"You can't drive to this UFO sighting :("};
 }
 
 

@@ -63,12 +63,12 @@ string UFOSightings::getData(const string field, const pair<string, string>& key
     if(field == "length")
         return m[key].length;
     if(field == "city")
-        return (m[key].city + m[key].state);
+        return (m[key].city);
     if(field == "state")
         return m[key].state;
-    if (field == "latitude")
+    if (field == "lat")
         return to_string(m[key].coords.first);
-    if (field == "longitude")
+    if (field == "long")
         return to_string(m[key].coords.second); //Or long double getCoords()
     else
         return "-1";
@@ -123,7 +123,6 @@ void UFOSightings::parseFile(string filePath, int n)
         cout << "CAN'T OPEN";
         return;
     }
-
     string line;
     int count = -1; //
 
