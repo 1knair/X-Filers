@@ -1,0 +1,92 @@
+SHORTEST PATH USING DJIKSTRA'S ALGORITHM
+
+gainesville-fl -> savannah-ga -> charleston-sc -> charlotte-nc -> woodstock-ga -> nashville-tn -> evansville-in -> memphis-tn -> little rock-ar -> dallas-tx -> houston-tx
+________________________________________________________________________________________________________________________________________________________________________________________________________
+gainesville, fl
+
+Date and Time: 9/9/2013 21:00
+Description: Three lights in the sky that didn&#39t look like plane
+Length: 60
+Latitude: 29.651389
+Longitude: -82.325000
+________________________________________________________________________________________________________________________________________________________________________________________________________
+savannah, ga
+
+Date and Time: 9/9/1996 05:30
+Description: Unable to sleep&#44 looking out window&#44 became aware of something coming over top of building&#44 lit from beneath&#44 almost luminescent. Slowl
+Length: 30
+Latitude: 32.083333
+Longitude: -81.100000
+________________________________________________________________________________________________________________________________________________________________________________________________________
+charleston, sc
+
+Date and Time: 9/9/2012 21:55
+Description: Orb of light flashing reds and blues&#44 stationary for 15 minutes over North Charleston
+Length: 900
+Latitude: 32.776389
+Longitude: -79.931111
+________________________________________________________________________________________________________________________________________________________________________________________________________
+charlotte, nc
+
+Date and Time: 9/25/2003 19:10
+Description: One oval&#44 silver craft spotted over highway&#44 appeared to hover and then fly away
+Length: 180
+Latitude: 35.226944
+Longitude: -80.843333
+________________________________________________________________________________________________________________________________________________________________________________________________________
+woodstock, ga
+
+Date and Time: 9/9/2013 21:00
+Description: Driving 575 at 21:00 hrs saw a white and green bright sphere.Moved really fast up and down then it disappeared.
+Length: 20
+Latitude: 34.101389
+Longitude: -84.519444
+________________________________________________________________________________________________________________________________________________________________________________________________________
+nashville, tn
+
+Date and Time: 9/9/2013 21:15
+Description: Round from the distance/slowly changing colors and hovering.
+Length: 600
+Latitude: 36.165833
+Longitude: -86.784444
+________________________________________________________________________________________________________________________________________________________________________________________________________
+evansville, in
+
+Date and Time: 9/8/2011 23:33
+Description: Flickering lights that look sort of like a star.
+Length: 300
+Latitude: 37.974722
+Longitude: -87.555833
+________________________________________________________________________________________________________________________________________________________________________________________________________
+memphis, tn
+
+Date and Time: 9/30/2000 20:00
+Description: UFO over Memphis
+Length: 120
+Latitude: 35.149444
+Longitude: -90.048889
+________________________________________________________________________________________________________________________________________________________________________________________________________
+little rock, ar
+
+Date and Time: 9/28/2010 21:30
+Description: A ball of light moving very quickly.
+Length: 5
+Latitude: 34.746389
+Longitude: -92.289444
+________________________________________________________________________________________________________________________________________________________________________________________________________
+dallas, tx
+
+Date and Time: 9/2/1999 03:15
+Description: Thursday morning (9-02-99) at 03:15 I was awakened by my TriField meter with external coil. Loud alarm for over a minute.
+Length: 60
+Latitude: 32.783333
+Longitude: -96.800000
+________________________________________________________________________________________________________________________________________________________________________________________________________
+houston, tx
+
+Date and Time: 9/8/2000 06:15
+Description: As I went to work at 6 :15 am&#44 passing over I -10 and  the Sam Houston Beltway West&#44 South bound I saw what appeared to be an airplane
+Length: 120
+Latitude: 29.763056
+Longitude: -95.363056
+________________________________________________________________________________________________________________________________________________________________________________________________________
