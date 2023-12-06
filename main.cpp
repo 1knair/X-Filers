@@ -18,8 +18,8 @@ void output(Graph& graph, UFOSightings& sightings, vector<string> path, int algo
         fs << "SHORTEST PATH USING BFS" << endl;
     }
     if (algo == 2) {
-        cout << "SHORTEST PATH USING DJIKSTRA'S ALGORITHM" << endl;
-        fs << "SHORTEST PATH USING DJIKSTRA'S ALGORITHM" << endl;
+        cout << "SHORTEST PATH USING DIJKSTRA'S ALGORITHM" << endl;
+        fs << "SHORTEST PATH USING DIJKSTRA'S ALGORITHM" << endl;
     }
     cout << endl;
     fs << endl;
@@ -71,15 +71,11 @@ int main() {
 
     using namespace matplot;
     Graph graph; //create empty graph
-    cout << "Graph container created successfully" << endl;
     UFOSightings sightings; //create container for sightings
-    cout << "Sighting container created successfully" << endl;
 
     //Fill the graph with sightings
     sightings.parseFile("./ufo_sighting_data.csv", 80332);
-    cout << "Parse file and sighting objects created successfully" << endl;
     graph.create(sightings);
-    cout << "Graph created successfully" << endl;
 
     //Ask user for the starting and ending location and for the type of path
     string start = "";
@@ -164,18 +160,3 @@ int main() {
 
     }
 }
-
-
-//testing the graph and sighitings object
-//if (graph.adjList.find("houston") != graph.adjList.end()) cout << "Found";
-//cout << graph.calculateEdgeWeight(make_pair(29.7630556, -95.3630556), make_pair(41.523427, -73.646795));
-// cout << graph.calculateEdgeWeight(make_pair(29.7630556, -95.3630556), make_pair(41.523427, -73.646795));
-// for (pair<string, string>& key : sightings.v) {
-/*cout << "City: " << sightings.m[key].city << endl;
-cout << "Date/Time: " << sightings.m[key].date_time << endl;
-cout << "Length: " << sightings.m[key].length << endl;
-cout << "Desc: " << sightings.m[key].desc << endl;
-cout << "Coords: " << sightings.m[key].coords.first << ", " << sightings.m[key].coords.first << endl;*/
-//}
-//Vsit this UFO sighting
-//go here 4/29/2005 21:00,cary,nc,us,light,90,90 sec,((NUFORC Note:  Missile launch at 2055 hrs (EDT).  PD))  Two small yellow-white lights moving parallel to horizon; fuzzy ring of light,5/11/2005,35.7913889,-78.7813889

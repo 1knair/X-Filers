@@ -126,7 +126,7 @@ void UFOSightings::parseFile(string filePath, int n)
     string line;
     int count = -1; //
 
-    while (getline(fs, line, '\r')) { //wow \r is crazy
+    while (getline(fs, line, '\r')) {
         count++;
         if (count == 0)
             continue;

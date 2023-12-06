@@ -34,9 +34,8 @@ public:
     //first is the to nodes along with edge weights
     //next is to keep track of cumulative distances for the dijkstra algorithm
     //bool for keeping track if it has been visited
-    //MARIA REMOVE BOOLEAN AND LONG DOUBLE FOR DISTANCE?
     unordered_map<string, tuple<vector<Edge>, long double, bool>> adjList;
-    int numVertices = 0; //MARIA DO WE EVER USE THIS
+    int numVertices = 0;
     float threshold = 500; //distance in km to make an edge between two sightings
 
     /**
